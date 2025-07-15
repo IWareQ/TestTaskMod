@@ -1,0 +1,4 @@
+```
+gradle setupDecompWorkspace
+gradle runClient
+```
