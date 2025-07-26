@@ -37,7 +37,7 @@ public class GaiaKiller extends ItemSword {
 
     @Override
     public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
-        if (target instanceof EntityDoppleganger) {
+        if (target instanceof EntityDoppleganger && attacker instanceof EntityPlayer) {
             EntityPlayer attackerPlayer = (EntityPlayer) attacker;
 
             if (getRemainingCooldownSeconds(stack) > 0) {
