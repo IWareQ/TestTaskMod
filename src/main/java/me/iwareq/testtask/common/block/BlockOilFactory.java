@@ -3,7 +3,7 @@ package me.iwareq.testtask.common.block;
 import cpw.mods.fml.common.registry.GameRegistry;
 import me.iwareq.testtask.Tags;
 import me.iwareq.testtask.TestTaskMod;
-import me.iwareq.testtask.common.tile.TileNewMaterializer;
+import me.iwareq.testtask.common.tile.TileOilFactory;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -20,20 +20,20 @@ import java.util.List;
 /**
  * @author IWareQ
  */
-public class BlockNewMaterializer extends BlockContainer {
-    public BlockNewMaterializer() {
+public class BlockOilFactory extends BlockContainer {
+    public BlockOilFactory() {
         super(Material.iron);
-        setBlockName("newMaterializer");
-        setBlockTextureName(Tags.MOD_ID + ":newMaterializer");
+        setBlockName("oilFactory");
+        setBlockTextureName(Tags.MOD_ID + ":oilFactory");
         setCreativeTab(TestTaskMod.CREATIVE_TAB);
 
-        GameRegistry.registerTileEntity(TileNewMaterializer.class, Tags.MOD_ID + ":newMaterializer");
+        GameRegistry.registerTileEntity(TileOilFactory.class, Tags.MOD_ID + ":oilFactory");
     }
 
     @Override
     public boolean onBlockActivated(World worldIn, int x, int y, int z, EntityPlayer player, int side, float subX, float subY, float subZ) {
         TileEntity tile = worldIn.getTileEntity(x, y, z);
-        if (tile instanceof TileNewMaterializer) {
+        if (tile instanceof TileOilFactory) {
             player.openGui(TestTaskMod.instance, 0, worldIn, x, y, z);
             return true;
         }
@@ -63,6 +63,6 @@ public class BlockNewMaterializer extends BlockContainer {
 
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return new TileNewMaterializer();
+        return new TileOilFactory();
     }
 }

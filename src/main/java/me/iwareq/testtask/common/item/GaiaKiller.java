@@ -31,7 +31,7 @@ public class GaiaKiller extends ItemSword {
         this.setMaxDamage(-1);
         this.setCreativeTab(TestTaskMod.CREATIVE_TAB);
         this.setHasSubtypes(true);
-        this.setUnlocalizedName("gaia_killer");
+        this.setUnlocalizedName("gaiaKiller");
         this.setTextureName("stick");
     }
 

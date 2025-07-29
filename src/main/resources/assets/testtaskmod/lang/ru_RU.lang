@@ -1,6 +1,16 @@
 itemGroup.testtaskmod=Test Task
 
-item.gaia_killer.name=Убийца Гайи
+item.gaiaKiller.name=Убийца Гайи
 
-container.new_materializer=Улучшенный материализатор жизненной эссенции
-tile.new_materializer.name=Улучшенный материализатор жизненной эссенции
+container.newMaterializer=Улучшенный материализатор жизненной эссенции
+container.chipFabric=Фабрика чипов
+container.oilFactory=Нефтяной завод
+
+tile.newMaterializer.name=Улучшенный материализатор жизненной эссенции
+tile.chipFabric.name=Фабрика чипов
+tile.oilFactory.name=Нефтяной завод
+
+testtask.nei.chipFabric=Фабрика чипов
+testtask.nei.oilFactory=Нефтяной завод
+
+testtask.gui.empty=Пусто

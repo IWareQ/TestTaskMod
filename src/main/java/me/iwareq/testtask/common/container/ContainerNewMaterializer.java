@@ -1,7 +1,7 @@
 package me.iwareq.testtask.common.container;
 
 import WayofTime.alchemicalWizardry.api.items.interfaces.IBloodOrb;
-import me.iwareq.testtask.common.tileentity.TileNewMaterializer;
+import me.iwareq.testtask.common.tile.TileNewMaterializer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;

@@ -31,7 +31,7 @@ minecraft {
     mcpMappingVersion.set("12")
 
     // Username for client run configurations
-    username.set("IWareQ")
+    username.set("Developer")
 
     // Generate a field named VERSION with the mod version in the injected Tags class
     injectedTags.put("VERSION", project.version)
@@ -52,6 +52,10 @@ minecraft {
 
 tasks.injectTags.configure {
     outputClassName.set("${project.group}.Tags")
+}
+
+tasks.deobfuscateMergedJarToSrg.configure {
+    accessTransformerFiles.from("src/main/resources/META-INF/${modId}_at.cfg")
 }
 
 tasks.processResources.configure {
@@ -96,6 +100,9 @@ dependencies {
     // Для теста перекачки крови трубами
     api(rfg.deobf("curse.maven:ender-io-64578:4671445"))
     api(rfg.deobf("curse.maven:endercore-231868:4671288"))
+
+    api(rfg.deobf("curse.maven:crafttweaker-239197:2838720"))
+    api(rfg.deobf("curse.maven:industrial-craft-242638:2353971"))
 
     compileOnly("org.projectlombok:lombok:1.18.38")
     annotationProcessor("org.projectlombok:lombok:1.18.38")

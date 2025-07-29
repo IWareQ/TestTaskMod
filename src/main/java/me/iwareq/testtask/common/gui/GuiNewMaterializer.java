@@ -3,7 +3,7 @@ package me.iwareq.testtask.common.gui;
 import com.enderio.core.client.render.RenderUtil;
 import me.iwareq.testtask.Tags;
 import me.iwareq.testtask.common.container.ContainerNewMaterializer;
-import me.iwareq.testtask.common.tileentity.TileNewMaterializer;
+import me.iwareq.testtask.common.tile.TileNewMaterializer;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;

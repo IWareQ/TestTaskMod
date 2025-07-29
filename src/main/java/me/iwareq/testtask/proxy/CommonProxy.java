@@ -5,30 +5,38 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
-import me.iwareq.testtask.Tags;
+import ic2.core.IHasGui;
 import me.iwareq.testtask.TestTaskMod;
-import me.iwareq.testtask.common.block.BlockNewMaterializer;
+import me.iwareq.testtask.common.ModBlocks;
+import me.iwareq.testtask.common.config.ModConfig;
 import me.iwareq.testtask.common.container.ContainerNewMaterializer;
 import me.iwareq.testtask.common.gui.GuiNewMaterializer;
 import me.iwareq.testtask.common.item.GaiaKiller;
-import me.iwareq.testtask.common.tileentity.TileNewMaterializer;
+import me.iwareq.testtask.common.tile.TileNewMaterializer;
+import me.iwareq.testtask.tweaker.zen.ZenChipFabric;
+import me.iwareq.testtask.tweaker.zen.ZenOilFactory;
+import minetweaker.MineTweakerAPI;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraftforge.common.config.Configuration;
 
 /**
  * @author IWareQ
  */
 public class CommonProxy implements IGuiHandler {
     public void preInit(FMLPreInitializationEvent event) {
-        GameRegistry.registerItem(new GaiaKiller(), "GaiaKiller");
+        ModConfig.load(new Configuration(event.getSuggestedConfigurationFile()));
 
-        GameRegistry.registerBlock(new BlockNewMaterializer(), "new_materializer");
+        GameRegistry.registerItem(new GaiaKiller(), "gaiaKiller");
 
-        GameRegistry.registerTileEntity(TileNewMaterializer.class, Tags.MOD_ID + ":new_materializer");
+        ModBlocks.register();
     }
 
-    public void init(FMLInitializationEvent event) {
+    public void init(FMLInitializationEvent ignoredEvent) {
+        MineTweakerAPI.registerClass(ZenChipFabric.class);
+        MineTweakerAPI.registerClass(ZenOilFactory.class);
+
         NetworkRegistry.INSTANCE.registerGuiHandler(TestTaskMod.instance, this);
     }
 
@@ -37,6 +45,8 @@ public class CommonProxy implements IGuiHandler {
         TileEntity tile = world.getTileEntity(x, y, z);
         if (tile instanceof TileNewMaterializer) {
             return new ContainerNewMaterializer(player.inventory, (TileNewMaterializer) tile);
+        } else if (tile instanceof IHasGui) {
+            return ((IHasGui) tile).getGuiContainer(player);
         }
 
         return null;
@@ -50,6 +60,8 @@ public class CommonProxy implements IGuiHandler {
                     new ContainerNewMaterializer(player.inventory, (TileNewMaterializer) tile),
                     (TileNewMaterializer) tile
             );
+        } else if (tile instanceof IHasGui) {
+            return ((IHasGui) tile).getGui(player, false);
         }
 
         return null;

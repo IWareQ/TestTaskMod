@@ -20,7 +20,8 @@ import net.minecraft.item.Item;
         "required-after:EnderIO@[1.7.10-2.3.0.430_beta,);" +
         "required-after:Botania@[r1.8-249,);" +
         "required-after:Avaritia@[1.13,);" +
-        "required-after:AWWayofTime@[1.7.10-1.3.3-17,)"
+        "required-after:AWWayofTime@[v1.3.3,);" +
+        "required-after:IC2@[2.2.827-experimental,)"
 )
 public class TestTaskMod {
     public static final CreativeTabs CREATIVE_TAB = new CreativeTabs(CreativeTabs.getNextID(), Tags.MOD_ID) {

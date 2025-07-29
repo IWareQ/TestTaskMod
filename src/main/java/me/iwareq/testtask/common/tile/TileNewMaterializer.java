@@ -1,4 +1,4 @@
-package me.iwareq.testtask.common.tileentity;
+package me.iwareq.testtask.common.tile;
 
 import WayofTime.alchemicalWizardry.AlchemicalWizardry;
 import WayofTime.alchemicalWizardry.api.items.interfaces.IBloodOrb;
@@ -161,7 +161,7 @@ public class TileNewMaterializer extends TileEntity implements IInventory, IFlui
 
     @Override
     public String getInventoryName() {
-        return "container.new_materializer";
+        return "container.newMaterializer";
     }
 
     @Override
