@@ -26,7 +26,7 @@ public class ContainerChipFabric extends ContainerFullInv<TileChipFabric> {
         this.addSlotToContainer(new SlotInvSlot(tile.getOutputSlot(), 0, 130, 45));
 
         for (int i = 0; i < 5; i++) {
-            this.addSlotToContainer(new SlotInvSlot(tile.getUpgradeSlots(), i, 152, 9 + (i * 18)));
+            this.addSlotToContainer(new SlotInvSlot(tile.getUpgradesSlot(), i, 152, 9 + (i * 18)));
         }
     }
 

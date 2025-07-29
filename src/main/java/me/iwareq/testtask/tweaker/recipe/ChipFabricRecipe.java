@@ -1,6 +1,5 @@
 package me.iwareq.testtask.tweaker.recipe;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.item.ItemStack;
 
@@ -8,13 +7,17 @@ import net.minecraft.item.ItemStack;
  * @author IWareQ
  */
 @Getter
-@AllArgsConstructor
-public class ChipFabricRecipe {
+public class ChipFabricRecipe extends MachineRecipe {
     private final ItemStack[] inputStacks;
     private final ItemStack lensStack;
     private final ItemStack outputStack;
-    private final int operationTime;
-    private final double energyPerTick;
+
+    public ChipFabricRecipe(ItemStack[] inputStacks, ItemStack lensStack, ItemStack outputStack, int operationTime, double energyPerTick) {
+        super(operationTime, energyPerTick);
+        this.inputStacks = inputStacks;
+        this.lensStack = lensStack;
+        this.outputStack = outputStack;
+    }
 
     public ItemStack getOutputStack() {
         return this.outputStack.copy();

@@ -1,6 +1,5 @@
 package me.iwareq.testtask.tweaker.recipe;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -8,12 +7,15 @@ import net.minecraftforge.fluids.FluidStack;
  * @author IWareQ
  */
 @Getter
-@AllArgsConstructor
-public class OilFactoryRecipe {
+public class OilFactoryRecipe extends MachineRecipe {
     private final FluidStack inputFluid;
     private final FluidStack outputFluid;
-    private final int operationTime;
-    private final double energyPerTick;
+
+    public OilFactoryRecipe(FluidStack inputFluid, FluidStack outputFluid, int operationTime, double energyPerTick) {
+        super(operationTime, energyPerTick);
+        this.inputFluid = inputFluid;
+        this.outputFluid = outputFluid;
+    }
 
     public FluidStack getInputFluid() {
         return this.inputFluid.copy();
