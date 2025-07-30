@@ -32,6 +32,10 @@ public class BlockNewMaterializer extends BlockContainer {
 
     @Override
     public boolean onBlockActivated(World worldIn, int x, int y, int z, EntityPlayer player, int side, float subX, float subY, float subZ) {
+        if (worldIn.isRemote) {
+            return false;
+        }
+
         TileEntity tile = worldIn.getTileEntity(x, y, z);
         if (tile instanceof TileNewMaterializer) {
             player.openGui(TestTaskMod.instance, 0, worldIn, x, y, z);
@@ -43,6 +47,10 @@ public class BlockNewMaterializer extends BlockContainer {
 
     @Override
     public void breakBlock(World worldIn, int x, int y, int z, Block blockBroken, int meta) {
+        if (worldIn.isRemote) {
+            return;
+        }
+
         List<ItemStack> drops = new ArrayList<>();
 
         TileEntity tileEntity = worldIn.getTileEntity(x, y, z);

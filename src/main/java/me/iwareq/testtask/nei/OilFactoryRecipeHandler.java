@@ -63,6 +63,10 @@ public class OilFactoryRecipeHandler extends TemplateRecipeHandler {
     }
 
     private void loadCraftingRecipes(FluidStack result) {
+        if (result == null) {
+            return;
+        }
+
         for (OilFactoryRecipe recipe : this.recipes) {
             FluidStack output = recipe.getOutputFluid();
             if (output.isFluidEqual(result)) {
@@ -89,6 +93,10 @@ public class OilFactoryRecipeHandler extends TemplateRecipeHandler {
     }
 
     private void loadUsageRecipes(FluidStack ingredient) {
+        if (ingredient == null) {
+            return;
+        }
+
         for (OilFactoryRecipe recipe : this.recipes) {
             if (recipe.getInputFluid().isFluidEqual(ingredient)) {
                 this.arecipes.add(new Cached(recipe));

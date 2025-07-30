@@ -40,8 +40,12 @@ public class ChipFabricRecipeHandler extends TemplateRecipeHandler {
 
     @Override
     public void loadCraftingRecipes(ItemStack result) {
+        if (result == null) {
+            return;
+        }
+
         for (ChipFabricRecipe recipe : recipes) {
-            if (recipe.getOutputStack().isItemEqual(result)) {
+            if (recipe.getOutputStack().isItemEqual(result) && ItemStack.areItemStackTagsEqual(recipe.getOutputStack(), result)) {
                 arecipes.add(new Cached(recipe));
             }
         }
@@ -49,9 +53,13 @@ public class ChipFabricRecipeHandler extends TemplateRecipeHandler {
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
+        if (ingredient == null) {
+            return;
+        }
+
         for (ChipFabricRecipe recipe : recipes) {
             for (ItemStack input : recipe.getInputStacks()) {
-                if (input != null && input.isItemEqual(ingredient)) {
+                if (input.isItemEqual(ingredient) && ItemStack.areItemStackTagsEqual(input, ingredient)) {
                     arecipes.add(new Cached(recipe));
                     break;
                 }
@@ -98,10 +106,11 @@ public class ChipFabricRecipeHandler extends TemplateRecipeHandler {
     public class Cached extends CachedRecipe {
         @Getter
         private final List<PositionedStack> ingredients = new ArrayList<>();
+        private final PositionedStack lens;
         private final PositionedStack output;
 
         public Cached(ChipFabricRecipe recipe) {
-            ingredients.add(new PositionedStack(recipe.getLensStack(), x(77), 32));
+            this.lens = new PositionedStack(recipe.getLensStack(), x(77), 32);
 
             ItemStack[] inputs = recipe.getInputStacks();
             for (int i = 0; i < inputs.length; i++) {
@@ -116,6 +125,11 @@ public class ChipFabricRecipeHandler extends TemplateRecipeHandler {
         @Override
         public PositionedStack getResult() {
             return output;
+        }
+
+        @Override
+        public PositionedStack getOtherStack() {
+            return lens;
         }
     }
 }

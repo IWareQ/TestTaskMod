@@ -9,6 +9,6 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public abstract class MachineRecipe {
-    private final int operationTime;
-    private final double energyPerTick;
+    protected final int operationTime;
+    protected final double energyPerTick;
 }

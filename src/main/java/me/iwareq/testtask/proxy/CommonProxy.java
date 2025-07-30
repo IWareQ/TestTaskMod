@@ -10,7 +10,6 @@ import me.iwareq.testtask.TestTaskMod;
 import me.iwareq.testtask.common.ModBlocks;
 import me.iwareq.testtask.common.config.ModConfig;
 import me.iwareq.testtask.common.container.ContainerNewMaterializer;
-import me.iwareq.testtask.common.gui.GuiNewMaterializer;
 import me.iwareq.testtask.common.item.GaiaKiller;
 import me.iwareq.testtask.common.tile.TileNewMaterializer;
 import me.iwareq.testtask.tweaker.zen.ZenChipFabric;
@@ -54,16 +53,6 @@ public class CommonProxy implements IGuiHandler {
 
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-        TileEntity tile = world.getTileEntity(x, y, z);
-        if (tile instanceof TileNewMaterializer) {
-            return new GuiNewMaterializer(
-                    new ContainerNewMaterializer(player.inventory, (TileNewMaterializer) tile),
-                    (TileNewMaterializer) tile
-            );
-        } else if (tile instanceof IHasGui) {
-            return ((IHasGui) tile).getGui(player, false);
-        }
-
         return null;
     }
 }

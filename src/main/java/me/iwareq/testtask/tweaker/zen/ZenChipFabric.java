@@ -8,6 +8,8 @@ import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
+import java.util.Objects;
+
 /**
  * @author IWareQ
  */
@@ -15,6 +17,10 @@ import stanhebben.zenscript.annotations.ZenMethod;
 public class ZenChipFabric {
     @ZenMethod
     public static void addRecipe(IItemStack[] inputs, IItemStack lens, IItemStack output, int operationTime, double energyPerTick) {
+        Objects.requireNonNull(inputs, "Input cannot be null");
+        Objects.requireNonNull(lens, "Lens cannot be null");
+        Objects.requireNonNull(output, "Output cannot be null");
+
         ItemStack[] inputStacks = new ItemStack[inputs.length];
         for (int i = 0; i < inputs.length; ++i) {
             inputStacks[i] = MineTweakerMC.getItemStack(inputs[i]);

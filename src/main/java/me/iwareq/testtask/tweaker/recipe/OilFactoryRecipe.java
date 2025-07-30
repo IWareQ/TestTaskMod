@@ -1,12 +1,10 @@
 package me.iwareq.testtask.tweaker.recipe;
 
-import lombok.Getter;
 import net.minecraftforge.fluids.FluidStack;
 
 /**
  * @author IWareQ
  */
-@Getter
 public class OilFactoryRecipe extends MachineRecipe {
     private final FluidStack inputFluid;
     private final FluidStack outputFluid;
