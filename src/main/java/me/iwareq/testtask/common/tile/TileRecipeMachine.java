@@ -74,9 +74,9 @@ public abstract class TileRecipeMachine<T extends MachineRecipe> extends TileEnt
         }
     }
 
-    public abstract T getRecipe();
-
     public abstract void operate(T recipe);
+
+    public abstract T getRecipe();
 
     @Override
     public void readFromNBT(NBTTagCompound nbttagcompound) {
@@ -87,6 +87,10 @@ public abstract class TileRecipeMachine<T extends MachineRecipe> extends TileEnt
     @Override
     public void writeToNBT(NBTTagCompound nbttagcompound) {
         super.writeToNBT(nbttagcompound);
+        writeNBTCustom(nbttagcompound);
+    }
+
+    protected void writeNBTCustom(NBTTagCompound nbttagcompound) {
         nbttagcompound.setInteger("progress", this.progress);
     }
 
@@ -98,7 +102,7 @@ public abstract class TileRecipeMachine<T extends MachineRecipe> extends TileEnt
     @Override
     public Packet getDescriptionPacket() {
         NBTTagCompound nbt = new NBTTagCompound();
-        writeToNBT(nbt);
+        writeNBTCustom(nbt);
         return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, nbt);
     }
 

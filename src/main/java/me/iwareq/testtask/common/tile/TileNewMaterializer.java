@@ -61,7 +61,7 @@ public class TileNewMaterializer extends TileEntity implements IInventory, IFlui
     @Override
     public Packet getDescriptionPacket() {
         NBTTagCompound nbt = new NBTTagCompound();
-        writeToNBT(nbt);
+        writeNBTCustom(nbt);
         return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, nbt);
     }
 
@@ -96,6 +96,10 @@ public class TileNewMaterializer extends TileEntity implements IInventory, IFlui
         }
         compound.setTag("Items", items);
 
+        writeNBTCustom(compound);
+    }
+
+    protected void writeNBTCustom(NBTTagCompound compound) {
         compound.setTag("Tank", tank.writeToNBT(new NBTTagCompound()));
     }
 
@@ -106,28 +110,33 @@ public class TileNewMaterializer extends TileEntity implements IInventory, IFlui
 
     @Override
     public ItemStack getStackInSlot(int slotIn) {
-        return inventory[slotIn];
+        if (slotIn >= 0 && slotIn < inventory.length) {
+            return inventory[slotIn];
+        }
+
+        return null;
+
     }
 
     @Override
     public ItemStack decrStackSize(int index, int count) {
-        if (this.inventory[index] == null) {
+        ItemStack itemStack = getStackInSlot(index);
+        if (itemStack == null) {
             return null;
         }
 
-        ItemStack itemstack;
-        if (this.inventory[index].stackSize <= count) {
-            itemstack = this.inventory[index];
+        if (itemStack.stackSize <= count) {
             this.inventory[index] = null;
         } else {
-            itemstack = this.inventory[index].splitStack(count);
-            if (this.inventory[index].stackSize == 0) {
+            ItemStack oldStack = itemStack;
+            itemStack = oldStack.splitStack(count);
+            if (oldStack.stackSize == 0) {
                 this.inventory[index] = null;
             }
         }
 
         this.markDirty();
-        return itemstack;
+        return itemStack;
     }
 
     @Override
@@ -141,20 +150,16 @@ public class TileNewMaterializer extends TileEntity implements IInventory, IFlui
     }
 
     @Override
-    public void markDirty() {
-        super.markDirty();
-        if (!worldObj.isRemote) {
-            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-        }
-    }
-
-    @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
-        inventory[index] = stack;
+        if (index < 0 || index >= inventory.length) {
+            return;
+        }
 
         if (stack != null && stack.stackSize > this.getInventoryStackLimit()) {
             stack.stackSize = this.getInventoryStackLimit();
         }
+
+        inventory[index] = stack;
 
         this.markDirty();
     }

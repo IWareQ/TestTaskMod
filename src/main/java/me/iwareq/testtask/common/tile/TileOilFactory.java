@@ -21,6 +21,14 @@ import java.util.Set;
  */
 @Getter
 public class TileOilFactory extends TileRecipeMachine<OilFactoryRecipe> implements IFluidHandler {
+    private static final EnumSet<UpgradableProperty> UPGRADABLE_PROPERTIES = EnumSet.of(
+            UpgradableProperty.Processing,
+            UpgradableProperty.Transformer,
+            UpgradableProperty.EnergyStorage,
+            UpgradableProperty.FluidConsuming,
+            UpgradableProperty.FluidProducing
+    );
+
     private final FluidTank inputFluidTank;
     private final FluidTank outputFluidTank;
 
@@ -63,8 +71,7 @@ public class TileOilFactory extends TileRecipeMachine<OilFactoryRecipe> implemen
     }
 
     @Override
-    public void writeToNBT(NBTTagCompound nbttagcompound) {
-        super.writeToNBT(nbttagcompound);
+    protected void writeNBTCustom(NBTTagCompound nbttagcompound) {
         nbttagcompound.setTag("inputFluidTank", this.inputFluidTank.writeToNBT(new NBTTagCompound()));
         nbttagcompound.setTag("outputFluidTank", this.outputFluidTank.writeToNBT(new NBTTagCompound()));
     }
@@ -76,7 +83,13 @@ public class TileOilFactory extends TileRecipeMachine<OilFactoryRecipe> implemen
 
     @Override
     public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain) {
-        return resource != null && resource.isFluidEqual(this.outputFluidTank.getFluid()) ? (!this.canDrain(from, resource.getFluid()) ? null : this.outputFluidTank.drain(resource.amount, doDrain)) : null;
+        if (resource != null && resource.isFluidEqual(this.outputFluidTank.getFluid())) {
+            if (this.canDrain(from, resource.getFluid())) {
+                return this.outputFluidTank.drain(resource.amount, doDrain);
+            }
+        }
+
+        return null;
     }
 
     @Override
@@ -108,13 +121,7 @@ public class TileOilFactory extends TileRecipeMachine<OilFactoryRecipe> implemen
 
     @Override
     public Set<UpgradableProperty> getUpgradableProperties() {
-        return EnumSet.of(
-                UpgradableProperty.Processing,
-                UpgradableProperty.Transformer,
-                UpgradableProperty.EnergyStorage,
-                UpgradableProperty.FluidConsuming,
-                UpgradableProperty.FluidProducing
-        );
+        return UPGRADABLE_PROPERTIES;
     }
 
     @Override

@@ -33,7 +33,7 @@ public class BlockNewMaterializer extends BlockContainer {
     @Override
     public boolean onBlockActivated(World worldIn, int x, int y, int z, EntityPlayer player, int side, float subX, float subY, float subZ) {
         if (worldIn.isRemote) {
-            return false;
+            return true;
         }
 
         TileEntity tile = worldIn.getTileEntity(x, y, z);

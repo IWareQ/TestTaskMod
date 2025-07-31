@@ -21,6 +21,14 @@ import java.util.Set;
  */
 @Getter
 public class TileChipFabric extends TileRecipeMachine<ChipFabricRecipe> {
+    private static final EnumSet<UpgradableProperty> UPGRADABLE_PROPERTIES = EnumSet.of(
+            UpgradableProperty.Processing,
+            UpgradableProperty.Transformer,
+            UpgradableProperty.EnergyStorage,
+            UpgradableProperty.ItemConsuming,
+            UpgradableProperty.ItemProducing
+    );
+
     private final InvSlotConsumableChipFabric inputSlots;
     private final InvSlotLens lensSlot;
     private final InvSlotOutput outputSlot;
@@ -59,13 +67,7 @@ public class TileChipFabric extends TileRecipeMachine<ChipFabricRecipe> {
 
     @Override
     public Set<UpgradableProperty> getUpgradableProperties() {
-        return EnumSet.of(
-                UpgradableProperty.Processing,
-                UpgradableProperty.Transformer,
-                UpgradableProperty.EnergyStorage,
-                UpgradableProperty.ItemConsuming,
-                UpgradableProperty.ItemProducing
-        );
+        return UPGRADABLE_PROPERTIES;
     }
 
     @Override
